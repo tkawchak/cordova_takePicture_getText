@@ -23,3 +23,36 @@
 
 
 // ...additional event handlers here...
+
+var Camera = navigator.camera;
+
+function takeNewPicture() {
+    var options = {
+        // Some common settings are 20, 50, and 100 
+        quality: 100,
+        destinationType: Camera.DestinationType.FILE_URI,
+        // In this app, dynamically set the picture source, Camera or photo gallery 
+        sourceType: Camera.PictureSourceType.CAMERA,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        allowEdit: true,
+        correctOrientation: true  //Corrects Android orientation quirks 
+    };
+    navigator.camera.getPicture(onSuccess, onFail, options);
+}
+    
+function onSuccess(imageData) {
+    var image = document.getElementById('image');
+    image.src = imageData;
+    
+    // imageData is a string that contains the location
+    // of the image.  In here, we should send this to the 
+    // google cloud to be processed.
+    
+    document.getElementById('image_loc').innerHTML = imageData;
+    
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
