@@ -45,6 +45,9 @@ app.initEvents = function() {
     
     
     document.getElementById('btn_camera').addEventListener('click', takeNewPicture);
+    
+    // 1. Load the JavaScript client library.
+    gapi.load('client', start);
 
     // NOTE: initialize your third-party libraries and event handlers
 

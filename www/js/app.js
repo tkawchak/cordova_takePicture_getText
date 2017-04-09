@@ -26,6 +26,17 @@
 
 var Camera = navigator.camera;
 
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
 function takeNewPicture() {
     var options = {
         // Some common settings are 20, 50, and 100 
@@ -51,8 +62,19 @@ function onSuccess(imageData) {
     
     document.getElementById('image_loc').innerHTML = imageData;
     
+    alert("sending data to flask server")
+    
+    httpGetAsync('http://104.39.111.109:5000?text='+"Tbis is a nie pichure", response_func);
+    
+    
 }
 
-function onFail(message) {
-    alert('Failed because: ' + message);
+function response_func(text) {
+    console.log(text);
 }
+                      
+
+function onFail(message) {
+    console.log('Failed because: ' + message);
+}
+
