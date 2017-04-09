@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from textblob import TextBlob
 app = Flask(__name__)
 
 @app.route('/')
@@ -8,8 +9,11 @@ def data():
 	text = request.args.get('text')
 	print text
 
-	return text
+	return autocor(text)
 
+def autocor(text):
+    b = TextBlob(text)
+    return b.correct()
 
 if __name__ == '__main__':
 	app.run(debug=False, host='0.0.0.0')
