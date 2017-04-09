@@ -1,5 +1,11 @@
+import sys
+
 from textblob import TextBlob
 
-def autocor(text):
-    b = TextBlob(text)
-    return b.correct()
+def autocor(name):
+    b = TextBlob(name)
+    print b.correct()
+
+
+print sys.argv
+autocor(sys.argv[1])
